@@ -1,0 +1,20 @@
+{
+  "name": "chris-juan-project",
+  "version": "1.0.0",
+  "description": "CIPHER QUEST: The Science of Secret Messages - Class 7 Computer Science Project by Chris Juan",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "start": "npx --yes serve ."
+  },
+  "keywords": [
+    "encryption",
+    "decryption",
+    "caesar-cipher",
+    "computer-science",
+    "class-7",
+    "education"
+  ],
+  "author": "Chris Juan",
+  "license": "MIT"
+}

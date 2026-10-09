@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CIPHER QUEST — The Science of Secret Messages | Chris Juan (Class 7)</title>
+  <link rel="icon" type="image/svg+xml" href="./public/favicon.svg">
+  <link rel="stylesheet" href="./src/css/styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <div class="brand-wrapper">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <span class="brand-title">CIPHER QUEST</span>
+        <span class="brand-tag">Class 7 Computer Science</span>
+      </div>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="#understanding" class="nav-link">Basics</a></li>
+          <li><a href="#lab" class="nav-link">Encryption Lab</a></li>
+          <li><a href="#chamber" class="nav-link">Decryption</a></li>
+          <li><a href="#crack" class="nav-link">Crack Code</a></li>
+          <li><a href="#comparison" class="nav-link">Key Types</a></li>
+          <li><a href="#real-world" class="nav-link">Applications</a></li>
+          <li><a href="#quiz" class="nav-link">Quiz</a></li>
+          <li><a href="#guide" class="nav-link">Guide</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <button id="btn-launch-presentation" class="btn-presentation-mode" title="Open Judge Presentation Mode">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          Judge Presentation Mode
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Section 0: Homepage / Hero -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-meta">
+          <span class="badge-small">CLASS 7 · COMPUTER SCIENCE PROJECT</span>
+        </div>
+        <h1 class="hero-title">CIPHER QUEST</h1>
+        <div class="hero-subtitle">The Science of Secret Messages</div>
+        <p class="hero-description">
+          What happens when someone intercepts a message sent over the internet? Explore how encryption transforms readable information into secret text, how keys help recover the original message, and why encryption matters in everyday life.
+        </p>
+
+        <!-- Student Information Card -->
+        <div class="student-card">
+          <div class="student-meta-item">
+            <span class="student-meta-label">Created by</span>
+            <span class="student-meta-value">Chris Juan</span>
+          </div>
+          <div class="student-meta-item">
+            <span class="student-meta-label">Class</span>
+            <span class="student-meta-value">7</span>
+          </div>
+          <div class="student-meta-item">
+            <span class="student-meta-label">Subject</span>
+            <span class="student-meta-value">Computer Science</span>
+          </div>
+          <div class="student-meta-item">
+            <span class="student-meta-label">Topic</span>
+            <span class="student-meta-value">Encryption and Decryption</span>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#lab" class="btn btn-primary">
+            START EXPERIMENT
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a href="#understanding" class="btn btn-secondary">LEARN THE BASICS</a>
+        </div>
+
+        <!-- Purposeful Flow Diagram Illustration (Plaintext -> Encryption -> Ciphertext) -->
+        <div class="flow-diagram-container">
+          <div class="flow-diagram-title">How Encryption Works — The Transformation Process</div>
+          <svg class="flow-svg" viewBox="0 0 760 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Box 1: Plaintext -->
+            <rect x="10" y="25" width="180" height="90" rx="4" fill="#252B33" stroke="#3B444F" stroke-width="1.5"/>
+            <text x="100" y="55" fill="#AAB3BD" font-size="11" font-family="sans-serif" font-weight="600" text-anchor="middle" letter-spacing="1">PLAINTEXT (INPUT)</text>
+            <text x="100" y="82" fill="#F5F7F8" font-size="14" font-family="monospace" font-weight="bold" text-anchor="middle">"MEET AT NOON"</text>
+            <text x="100" y="100" fill="#7E8996" font-size="11" font-family="sans-serif" text-anchor="middle">Readable by anyone</text>
+
+            <!-- Arrow 1 -->
+            <line x1="195" y1="70" x2="275" y2="70" stroke="#0F8B8D" stroke-width="2" stroke-dasharray="4 2"/>
+            <polygon points="280,70 272,66 272,74" fill="#0F8B8D"/>
+
+            <!-- Box 2: Encryption Engine -->
+            <rect x="285" y="15" width="190" height="110" rx="4" fill="#15191E" stroke="#0F8B8D" stroke-width="2"/>
+            <text x="380" y="42" fill="#0F8B8D" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="middle" letter-spacing="1">ENCRYPTION ENGINE</text>
+            <rect x="310" y="52" width="140" height="26" rx="3" fill="#252B33" stroke="#3B444F"/>
+            <text x="380" y="69" fill="#F5F7F8" font-size="11" font-family="monospace" text-anchor="middle">Caesar Rule + Key 3</text>
+            <text x="380" y="98" fill="#AAB3BD" font-size="10.5" font-family="sans-serif" text-anchor="middle">Shift each letter +3 positions</text>
+            <text x="380" y="112" fill="#7E8996" font-size="9.5" font-family="monospace" text-anchor="middle">M &rarr; N &rarr; O &rarr; P</text>
+
+            <!-- Arrow 2 -->
+            <line x1="480" y1="70" x2="560" y2="70" stroke="#0F8B8D" stroke-width="2" stroke-dasharray="4 2"/>
+            <polygon points="565,70 557,66 557,74" fill="#0F8B8D"/>
+
+            <!-- Box 3: Ciphertext -->
+            <rect x="570" y="25" width="180" height="90" rx="4" fill="#252B33" stroke="#3B444F" stroke-width="1.5"/>
+            <text x="660" y="55" fill="#AAB3BD" font-size="11" font-family="sans-serif" font-weight="600" text-anchor="middle" letter-spacing="1">CIPHERTEXT (OUTPUT)</text>
+            <text x="660" y="82" fill="#0F8B8D" font-size="14" font-family="monospace" font-weight="bold" text-anchor="middle">"PHHW DW QRRQ"</text>
+            <text x="660" y="100" fill="#7E8996" font-size="11" font-family="sans-serif" text-anchor="middle">Disguised from snooper</text>
+          </svg>
+        </div>
+
+        <!-- 3 Simple Entry Points -->
+        <div class="hero-entry-points">
+          <div class="entry-point-card">
+            <div>
+              <div class="entry-point-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                Encrypt a Message
+              </div>
+              <p class="entry-point-desc">Type your own sentence, adjust the key slider from 1 to 25, and watch letters shift forward into secret ciphertext.</p>
+            </div>
+            <a href="#lab" class="entry-point-link">Launch Live Lab &rarr;</a>
+          </div>
+
+          <div class="entry-point-card">
+            <div>
+              <div class="entry-point-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
+                Decrypt a Message
+              </div>
+              <p class="entry-point-desc">Recover a secret message using the matching key, and test what happens when someone guesses the wrong key.</p>
+            </div>
+            <a href="#chamber" class="entry-point-link">Open Decryption Chamber &rarr;</a>
+          </div>
+
+          <div class="entry-point-card">
+            <div>
+              <div class="entry-point-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                Crack a Simple Code
+              </div>
+              <p class="entry-point-desc">Crack an intercepted message using brute-force analysis, and understand why the Caesar cipher is easily broken.</p>
+            </div>
+            <a href="#crack" class="entry-point-link">Test Code Breaking &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Educational Note Banner -->
+        <div class="note-banner">
+          <strong>Educational Note:</strong> An educational project demonstrating the basic principles of encryption. The Caesar cipher used in this experiment is not suitable for protecting real sensitive information.
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: Understanding Encryption -->
+    <section class="section-block" id="understanding">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Section 1 · Foundations</div>
+          <h2 class="section-title">Understanding Encryption</h2>
+          <p class="section-subtitle">
+            Encryption is the foundation of secure communication. Click each stage in the pipeline below to see what happens at every step of a secret transmission.
+          </p>
+        </div>
+
+        <div class="interactive-pipeline-wrapper">
+          <div class="pipeline-nodes" role="tablist" aria-label="Encryption Pipeline Stages">
+            <div class="pipeline-node active" data-step="sender" role="tab" tabindex="0">
+              <div class="pipeline-node-name">SENDER</div>
+              <div class="pipeline-node-hint">Source</div>
+            </div>
+            <div class="pipeline-arrow">&rarr;</div>
+            <div class="pipeline-node" data-step="plaintext" role="tab" tabindex="0">
+              <div class="pipeline-node-name">PLAINTEXT</div>
+              <div class="pipeline-node-hint">Readable Text</div>
+            </div>
+            <div class="pipeline-arrow">&rarr;</div>
+            <div class="pipeline-node" data-step="encryption" role="tab" tabindex="0">
+              <div class="pipeline-node-name">ENCRYPTION + KEY</div>
+              <div class="pipeline-node-hint">Scrambler</div>
+            </div>
+            <div class="pipeline-arrow">&rarr;</div>
+            <div class="pipeline-node" data-step="ciphertext" role="tab" tabindex="0">
+              <div class="pipeline-node-name">CIPHERTEXT</div>
+              <div class="pipeline-node-hint">Secret Code</div>
+            </div>
+            <div class="pipeline-arrow">&rarr;</div>
+            <div class="pipeline-node" data-step="decryption" role="tab" tabindex="0">
+              <div class="pipeline-node-name">DECRYPTION + KEY</div>
+              <div class="pipeline-node-hint">Recovery</div>
+            </div>
+            <div class="pipeline-arrow">&rarr;</div>
+            <div class="pipeline-node" data-step="original" role="tab" tabindex="0">
+              <div class="pipeline-node-name">ORIGINAL MESSAGE</div>
+              <div class="pipeline-node-hint">Receiver</div>
+            </div>
+          </div>
+
+          <!-- Dynamic Explanation Card -->
+          <div class="pipeline-explanation-card">
+            <div class="explanation-title" id="pipeline-detail-title">Sender</div>
+            <div class="explanation-body" id="pipeline-detail-body">
+              The person or computer that wants to transmit a private message across a communication channel.
+            </div>
+            <div class="explanation-example" id="pipeline-detail-example">
+              Alice wants to send a secret meeting note to Bob.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Live Encryption Lab -->
+    <section class="section-block" id="lab">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Section 2 · Core Experiment</div>
+          <h2 class="section-title">Live Encryption Lab</h2>
+          <p class="section-subtitle">
+            Test the Caesar cipher with real input. Enter any message, adjust the shift key, and observe how letters transform systematically according to the mathematical shift rule.
+          </p>
+        </div>
+
+        <div class="lab-grid">
+          <div class="lab-panel">
+            <!-- Message Input -->
+            <div class="form-group">
+              <label class="form-label" for="lab-message-input">
+                <span>Message Field</span>
+                <span class="form-hint">Uppercase, lowercase, spaces, punctuation & numbers preserved</span>
+              </label>
+              <textarea id="lab-message-input" class="text-area" rows="3" placeholder="Type your message here...">MEET ME AT THE LIBRARY</textarea>
+            </div>
+
+            <!-- Key Slider -->
+            <div class="form-group">
+              <label class="form-label" for="lab-shift-slider">
+                <span>Shift Key (1 to 25)</span>
+                <span class="form-hint">How many positions each letter shifts forward</span>
+              </label>
+              <div class="slider-container">
+                <input type="range" id="lab-shift-slider" class="slider-input" min="1" max="25" value="3" aria-label="Shift Key Slider">
+                <div class="slider-value-badge">
+                  <span id="lab-shift-value" class="slider-number">3</span>
+                  <span class="slider-tag">Shift Key</span>
+                </div>
+              </div>
+              <div id="lab-key-explanation" class="key-explanation-box">
+                Shift of +3: Every letter shifts forward by 3 positions (e.g. A becomes D).
+              </div>
+            </div>
+
+            <!-- Action Toolbar -->
+            <div class="button-toolbar">
+              <button id="btn-lab-encrypt" class="btn btn-primary">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                Encrypt
+              </button>
+              <button id="btn-lab-decrypt" class="btn btn-secondary">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
+                Decrypt
+              </button>
+              <button id="btn-lab-swap" class="btn btn-secondary" title="Swap input and output">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16"></path></svg>
+                Swap Input & Output
+              </button>
+              <button id="btn-lab-clear" class="btn btn-secondary">Clear</button>
+              <button id="btn-lab-copy" class="btn btn-secondary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Copy Result
+              </button>
+              <button id="btn-lab-reset" class="btn btn-secondary" style="margin-left:auto;">Reset to Example</button>
+            </div>
+
+            <!-- Output Result Box -->
+            <div class="output-box">
+              <div class="output-header">
+                <span id="lab-output-label" class="output-label">Encrypted Ciphertext:</span>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Real-time calculation</span>
+              </div>
+              <div id="lab-output-text" class="output-text">PHHW PH DW WKH OLEUDUB</div>
+            </div>
+
+            <!-- Letter Shift Progression Preview -->
+            <div id="letter-walkthrough-preview" class="letter-walkthrough">
+              <!-- Dynamically populated e.g. M -> N -> O -> P -->
+            </div>
+
+            <!-- Alphabet Shift Dual-Track Visualizer -->
+            <div class="alphabet-visualizer">
+              <div class="alphabet-visualizer-title">Alphabet Mapping (Original &rarr; Shifted Alignment)</div>
+              <div class="alphabet-track-label">Original Alphabet (A to Z):</div>
+              <div class="alphabet-track">
+                <div class="alphabet-cell">A</div><div class="alphabet-cell">B</div><div class="alphabet-cell">C</div><div class="alphabet-cell">D</div>
+                <div class="alphabet-cell">E</div><div class="alphabet-cell">F</div><div class="alphabet-cell">G</div><div class="alphabet-cell">H</div>
+                <div class="alphabet-cell">I</div><div class="alphabet-cell">J</div><div class="alphabet-cell">K</div><div class="alphabet-cell">L</div>
+                <div class="alphabet-cell">M</div><div class="alphabet-cell">N</div><div class="alphabet-cell">O</div><div class="alphabet-cell">P</div>
+                <div class="alphabet-cell">Q</div><div class="alphabet-cell">R</div><div class="alphabet-cell">S</div><div class="alphabet-cell">T</div>
+                <div class="alphabet-cell">U</div><div class="alphabet-cell">V</div><div class="alphabet-cell">W</div><div class="alphabet-cell">X</div>
+                <div class="alphabet-cell">Y</div><div class="alphabet-cell">Z</div>
+              </div>
+
+              <div class="alphabet-track-label" style="margin-top:0.75rem;">Shifted Alphabet (Offset):</div>
+              <div id="alphabet-track-shifted" class="alphabet-track">
+                <!-- Dynamically updated -->
+              </div>
+            </div>
+
+            <!-- Historical Note -->
+            <div class="note-banner" style="margin-top:1.5rem;">
+              The Caesar cipher is an old substitution cipher. It is useful for learning how keys work, but it is easy to break and must not be used to protect real passwords or private messages.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Decryption Chamber -->
+    <section class="section-block" id="chamber">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Section 3 · Message Recovery</div>
+          <h2 class="section-title">Decryption Chamber</h2>
+          <p class="section-subtitle">
+            Decryption is the mathematical inverse of encryption. Recover a message using the secret key, and see firsthand what happens when an incorrect key is provided.
+          </p>
+        </div>
+
+        <div class="chamber-comparison">
+          <!-- Input Card -->
+          <div class="chamber-card">
+            <h3 style="font-size:1.125rem; margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              Ciphertext Input
+            </h3>
+            <div class="form-group">
+              <label class="form-label" for="chamber-cipher-input">Enter Scrambled Text:</label>
+              <textarea id="chamber-cipher-input" class="text-area" rows="2">PHHW PH DW WKH OLEUDUB</textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="chamber-shift-select">Decryption Key:</label>
+              <select id="chamber-shift-select" class="text-input" style="padding:0.6rem;">
+                <option value="1">Shift 1</option>
+                <option value="2">Shift 2</option>
+                <option value="3" selected>Shift 3 (Matching Key)</option>
+                <option value="4">Shift 4</option>
+                <option value="5">Shift 5 (Mismatch Example)</option>
+                <option value="6">Shift 6</option>
+                <option value="7">Shift 7</option>
+                <option value="8">Shift 8</option>
+                <option value="9">Shift 9</option>
+                <option value="10">Shift 10</option>
+                <option value="11">Shift 11</option>
+                <option value="12">Shift 12</option>
+                <option value="13">Shift 13 (ROT13)</option>
+                <option value="14">Shift 14</option>
+                <option value="15">Shift 15</option>
+                <option value="16">Shift 16</option>
+                <option value="17">Shift 17</option>
+                <option value="18">Shift 18</option>
+                <option value="19">Shift 19</option>
+                <option value="20">Shift 20</option>
+                <option value="21">Shift 21</option>
+                <option value="22">Shift 22</option>
+                <option value="23">Shift 23</option>
+                <option value="24">Shift 24</option>
+                <option value="25">Shift 25</option>
+              </select>
+            </div>
+            <button id="btn-chamber-decrypt" class="btn btn-primary" style="width:100%;">Decrypt Message</button>
+          </div>
+
+          <!-- Recovered Output Card -->
+          <div class="chamber-card">
+            <h3 style="font-size:1.125rem; margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              Recovered Result
+            </h3>
+            <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); margin-bottom:0.3rem;">Current Ciphertext:</div>
+            <div id="chamber-side-cipher" style="font-family:var(--font-mono); font-size:1.05rem; padding:0.6rem; background:var(--bg-main); border:1px solid var(--border-color); border-radius:4px; margin-bottom:1rem; color:var(--text-secondary);">PHHW PH DW WKH OLEUDUB</div>
+
+            <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--primary-teal); font-weight:700; margin-bottom:0.3rem;">Decrypted Plaintext:</div>
+            <div id="chamber-recovered-output" style="font-family:var(--font-mono); font-size:1.25rem; padding:0.75rem; background:var(--bg-main); border:1px solid var(--primary-teal); border-radius:4px; color:#FFFFFF; min-height:48px;">MEET ME AT THE LIBRARY</div>
+          </div>
+        </div>
+
+        <!-- Key-Mismatch Experiment Box -->
+        <div class="mismatch-experiment-card">
+          <h3 style="font-size:1.125rem; margin-bottom:0.5rem;">Interactive Key-Mismatch Experiment</h3>
+          <p style="font-size:0.875rem; color:var(--text-secondary);">
+            See how the result changes when the decryption key does not match the encryption key:
+          </p>
+
+          <div class="mismatch-toolbar">
+            <button id="btn-mismatch-setup" class="btn btn-secondary btn-sm">1. Load Message (Encrypted with Key 3)</button>
+            <button id="btn-mismatch-wrong" class="btn btn-secondary btn-sm">2. Try Wrong Key (Decrypt with Key 5)</button>
+            <button id="btn-mismatch-correct" class="btn btn-secondary btn-sm">3. Restore Matching Key (Key 3)</button>
+          </div>
+
+          <div id="mismatch-explanation-text" class="key-explanation-box" style="margin-top:0.5rem; line-height:1.5;">
+            Click a step above to see the effect of key mismatch in real time.
+          </div>
+
+          <div class="note-banner" style="margin-top:1.25rem;">
+            <strong>Important Concept:</strong> The result of an incorrect key depends on the cipher and input. In a Caesar cipher, a wrong key simply produces another shifted text. In modern ciphers, attempting decryption with the wrong key produces unrecognizable random binary noise or fails authentication.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Crack the Code -->
+    <section class="section-block" id="crack">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Section 4 · Cryptanalysis</div>
+          <h2 class="section-title">Crack the Code</h2>
+          <p class="section-subtitle">
+            Someone has intercepted a secret transmission, but the shift key was not captured. Experience how a brute-force search tests every possibility to recover the original message.
+          </p>
+        </div>
+
+        <div class="crack-intercept-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+            <span style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--primary-teal);">Intercepted Transmission</span>
+            <span id="crack-known-key" style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">Hidden key: Shift 3</span>
+          </div>
+
+          <div id="crack-intercepted-text" class="intercepted-display">PHHW PH DW WKH OLEUDUB</div>
+
+          <p style="font-size:0.875rem; color:var(--text-secondary); margin-bottom:1.5rem;">
+            <strong>Challenge:</strong> "Someone has intercepted this message, but the shift key is unknown. Can you recover the original text?"
+          </p>
+
+          <!-- Manual Key Scrubbing -->
+          <div class="form-group" style="background:var(--bg-main); padding:1rem; border:1px solid var(--border-color); border-radius:4px; margin-bottom:1.5rem;">
+            <label class="form-label" for="crack-manual-slider">
+              <span>Manual Key Guesser: Shift <span id="crack-manual-shift-val">0</span></span>
+              <span class="form-hint">Slide to test shifts manually</span>
+            </label>
+            <input type="range" id="crack-manual-slider" class="slider-input" min="0" max="25" value="0" style="width:100%;">
+            <div style="margin-top:0.75rem; font-family:var(--font-mono); font-size:1.05rem;">
+              <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Decrypted Preview: </span>
+              <span id="crack-manual-preview">PHHW PH DW WKH OLEUDUB</span>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+            <button id="btn-crack-try-all" class="btn btn-primary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+              TRY ALL SHIFTS (Brute Force)
+            </button>
+            <button id="btn-crack-new-challenge" class="btn btn-secondary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+              New Challenge
+            </button>
+          </div>
+
+          <!-- Shifts 0-25 Brute Force Table -->
+          <div id="crack-table-container" class="shifts-table-container" style="display:none;">
+            <table class="shifts-table">
+              <thead>
+                <tr>
+                  <th style="width:120px;">Key Tested</th>
+                  <th>Decrypted Result</th>
+                </tr>
+              </thead>
+              <tbody id="crack-table-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Educational Explanation of Brute Force -->
+          <div class="note-banner" style="margin-top:1.5rem;">
+            <p style="margin-bottom:0.5rem;">
+              <strong>What is Brute Force?</strong> Brute force means systematically trying possible keys until a useful result is found.
+            </p>
+            <p>
+              <strong>Why does it work on Caesar Cipher?</strong> There are only 26 possible alphabet shifts (shifts 0 through 25). A human can read through them in a minute, and a computer checks them in less than a millisecond. In contrast, modern ciphers (such as AES-256) use keys with \(2^{256}\) possibilities—more than the number of atoms in the known universe—making brute-force attacks impossible with current technology.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: One Key or Two? (Symmetric vs Asymmetric) -->
+    <section class="section-block" id="comparison">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Section 5 · Modern Cryptography</div>
+          <h2 class="section-title">One Key or Two?</h2>
+          <p class="section-subtitle">
+            Cryptographic systems are divided into two main architectures based on how keys are managed. Here is a simplified comparison between symmetric and asymmetric encryption.
+          </p>
+        </div>
+
+        <div class="crypto-models-grid">
+          <!-- Symmetric Card -->
+          <div class="model-card">
+            <span class="model-badge">Single Key Model</span>
+            <h3 class="model-title">Symmetric Encryption</h3>
+            <p style="font-size:0.875rem; color:var(--text-secondary);">
+              In a symmetric scheme, the exact same secret key is used for both encrypting and decrypting the message.
+            </p>
+
+            <div class="model-diagram-box">
+              <svg class="model-diagram-svg" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Alice -->
+                <circle cx="50" cy="40" r="16" fill="#252B33" stroke="#3B444F" stroke-width="1.5"/>
+                <text x="50" y="44" fill="#F5F7F8" font-size="11" font-weight="bold" text-anchor="middle">Alice</text>
+                <text x="50" y="70" fill="#AAB3BD" font-size="9" text-anchor="middle">Sender</text>
+
+                <!-- Bob -->
+                <circle cx="270" cy="40" r="16" fill="#252B33" stroke="#3B444F" stroke-width="1.5"/>
+                <text x="270" y="44" fill="#F5F7F8" font-size="11" font-weight="bold" text-anchor="middle">Bob</text>
+                <text x="270" y="70" fill="#AAB3BD" font-size="9" text-anchor="middle">Receiver</text>
+
+                <!-- Shared Key in Middle -->
+                <rect x="110" y="25" width="100" height="30" rx="3" fill="#15191E" stroke="#0F8B8D" stroke-width="1.5"/>
+                <text x="160" y="44" fill="#0F8B8D" font-size="10" font-weight="bold" font-family="monospace" text-anchor="middle">Shared Key 🔑</text>
+
+                <!-- Arrows -->
+                <line x1="70" y1="40" x2="105" y2="40" stroke="#0F8B8D" stroke-width="1.5"/>
+                <line x1="215" y1="40" x2="250" y2="40" stroke="#0F8B8D" stroke-width="1.5"/>
+
+                <!-- Pipeline -->
+                <rect x="30" y="100" width="70" height="40" rx="3" fill="#252B33" stroke="#3B444F"/>
+                <text x="65" y="120" fill="#F5F7F8" font-size="9" text-anchor="middle">Plaintext</text>
+                <text x="65" y="132" fill="#7E8996" font-size="8" text-anchor="middle">"Hello Bob"</text>
+
+                <line x1="105" y1="120" x2="135" y2="120" stroke="#3B444F" stroke-width="1.5"/>
+                <polygon points="140,120 134,117 134,123" fill="#3B444F"/>
+
+                <rect x="145" y="100" width="70" height="40" rx="3" fill="#15191E" stroke="#0F8B8D"/>
+                <text x="180" y="120" fill="#0F8B8D" font-size="9" text-anchor="middle">Ciphertext</text>
+                <text x="180" y="132" fill="#7E8996" font-size="8" text-anchor="middle">#%8!kL2</text>
+
+                <line x1="220" y1="120" x2="250" y2="120" stroke="#3B444F" stroke-width="1.5"/>
+                <polygon points="255,120 249,117 249,123" fill="#3B444F"/>
+
+                <rect x="260" y="100" width="50" height="40" rx="3" fill="#252B33" stroke="#3B444F"/>
+                <text x="285" y="120" fill="#F5F7F8" font-size="9" text-anchor="middle">Decrypted</text>
+                <text x="285" y="132" fill="#7E8996" font-size="8" text-anchor="middle">"Hello Bob"</text>
+
+                <text x="160" y="165" fill="#AAB3BD" font-size="9" text-anchor="middle">Both use the SAME secret key</text>
+              </svg>
+            </div>
+
+            <div class="model-key-takeaway">
+              <strong>The Challenge:</strong> Alice and Bob must secretly share the key beforehand. If an eavesdropper intercepts the key during sharing, all future messages can be unlocked.
+            </div>
+          </div>
+
+          <!-- Asymmetric Card -->
+          <div class="model-card">
+            <span class="model-badge">Two Key (Public-Private) Model</span>
+            <h3 class="model-title">Asymmetric Encryption</h3>
+            <p style="font-size:0.875rem; color:var(--text-secondary);">
+              Asymmetric encryption uses a mathematically linked pair of keys: a Public Key to encrypt and a Private Key to decrypt.
+            </p>
+
+            <div class="model-diagram-box">
+              <svg class="model-diagram-svg" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Bob creates key pair -->
+                <circle cx="270" cy="40" r="16" fill="#252B33" stroke="#3B444F" stroke-width="1.5"/>
+                <text x="270" y="44" fill="#F5F7F8" font-size="11" font-weight="bold" text-anchor="middle">Bob</text>
+                <text x="270" y="70" fill="#AAB3BD" font-size="9" text-anchor="middle">Creates 2 Keys</text>
+
+                <!-- Public Key Shared -->
+                <rect x="130" y="15" width="90" height="25" rx="3" fill="#15191E" stroke="#0F8B8D"/>
+                <text x="175" y="31" fill="#0F8B8D" font-size="9" font-weight="bold" text-anchor="middle">Public Key 🔓</text>
+                <text x="175" y="52" fill="#7E8996" font-size="8" text-anchor="middle">Shared openly with Alice</text>
+
+                <!-- Private Key Kept Secret -->
+                <rect x="235" y="90" width="75" height="25" rx="3" fill="#252B33" stroke="#D9534F"/>
+                <text x="272" y="106" fill="#F5F7F8" font-size="9" font-weight="bold" text-anchor="middle">Private Key 🗝️</text>
+                <text x="272" y="125" fill="#D9534F" font-size="8" text-anchor="middle">Kept strictly secret</text>
+
+                <!-- Alice with Public Key -->
+                <circle cx="50" cy="40" r="16" fill="#252B33" stroke="#3B444F" stroke-width="1.5"/>
+                <text x="50" y="44" fill="#F5F7F8" font-size="11" font-weight="bold" text-anchor="middle">Alice</text>
+
+                <!-- Alice encrypts with Public Key -->
+                <rect x="10" y="90" width="80" height="40" rx="3" fill="#15191E" stroke="#0F8B8D"/>
+                <text x="50" y="108" fill="#F5F7F8" font-size="8.5" text-anchor="middle">Encrypts message</text>
+                <text x="50" y="122" fill="#0F8B8D" font-size="8" text-anchor="middle">using Bob's Public Key</text>
+
+                <!-- Transmit -->
+                <line x1="95" y1="110" x2="140" y2="110" stroke="#3B444F" stroke-width="1.5"/>
+                <polygon points="145,110 139,107 139,113" fill="#3B444F"/>
+
+                <rect x="150" y="95" width="70" height="30" rx="3" fill="#252B33" stroke="#3B444F"/>
+                <text x="185" y="114" fill="#AAB3BD" font-size="8.5" text-anchor="middle">Ciphertext</text>
+
+                <text x="160" y="165" fill="#AAB3BD" font-size="9" text-anchor="middle">Only Bob's Private Key can decrypt!</text>
+              </svg>
+            </div>
+
+            <div class="model-key-takeaway">
+              <strong>The Advantage:</strong> Anyone can use the public key to encrypt a message for Bob, but only Bob holds the private key required to decrypt it. Alice and Bob never need to share a secret password beforehand.
+            </div>
+          </div>
+        </div>
+
+        <div class="note-banner" style="margin-top:2rem;">
+          <strong>Educational Distinction:</strong> This comparison is a simplified educational model. Modern protocols (like HTTPS) combine both: they use asymmetric encryption to safely agree on a shared session key, and then switch to high-speed symmetric encryption to transmit bulk web data.
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Where Encryption is Used -->
+    <section class="section-block" id="real-world">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Section 6 · Real-World Impact</div>
+          <h2 class="section-title">Where Encryption is Used</h2>
+          <p class="section-subtitle">
+            Cybersecurity is the real-world application of Computer Science principles. Here are five familiar everyday places where encryption protects our digital lives.
+          </p>
+        </div>
+
+        <div class="apps-grid">
+          <!-- App 1: HTTPS -->
+          <div class="app-card">
+            <div class="app-icon-wrap" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            </div>
+            <h3 class="app-title">Secure Website Connections (HTTPS)</h3>
+            <p class="app-desc">
+              When a browser connects to a website using HTTPS, modern cryptographic protocols help protect data exchanged between the browser and the website. The padlock icon in the browser address bar confirms this secure tunnel.
+            </p>
+          </div>
+
+          <!-- App 2: Banking -->
+          <div class="app-card">
+            <div class="app-icon-wrap" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+            </div>
+            <h3 class="app-title">Online Banking &amp; Digital Payments</h3>
+            <p class="app-desc">
+              When paying online or sending money, encryption scrambles account numbers, PINs, and authentication tokens so hackers on Wi-Fi networks cannot steal financial credentials.
+            </p>
+          </div>
+
+          <!-- App 3: Messaging -->
+          <div class="app-card">
+            <div class="app-icon-wrap" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            </div>
+            <h3 class="app-title">Private Messaging Apps</h3>
+            <p class="app-desc">
+              Popular chat apps use end-to-end encryption. The message is encrypted on the sender's phone and only decrypted on the recipient's phone—not even the app company's servers can read the chat.
+            </p>
+          </div>
+
+          <!-- App 4: Files and Backups -->
+          <div class="app-card">
+            <div class="app-icon-wrap" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <h3 class="app-title">Personal Files &amp; Backups</h3>
+            <p class="app-desc">
+              Laptops, tablets, and cloud storage providers encrypt stored disks and backup archives. If a laptop or USB stick is lost or stolen, stored personal files cannot be opened without the password.
+            </p>
+          </div>
+
+          <!-- App 5: Online Shopping -->
+          <div class="app-card">
+            <div class="app-icon-wrap" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            </div>
+            <h3 class="app-title">Online Shopping</h3>
+            <p class="app-desc">
+              E-commerce platforms protect customer delivery addresses, phone numbers, and payment details during checkout so customers can shop safely from home.
+            </p>
+          </div>
+        </div>
+
+        <!-- The Limits of Encryption -->
+        <div class="limits-card">
+          <h3 style="font-size:1.125rem; margin-bottom:0.5rem; color:var(--text-main);">
+            The Realistic Limits of Encryption
+          </h3>
+          <p style="font-size:0.875rem; color:var(--text-secondary);">
+            While encryption is essential, it is not magic. Computer Science teaches us to understand system boundaries:
+          </p>
+
+          <ul class="limits-list">
+            <li class="limits-item">
+              <span class="limits-bullet">&times;</span>
+              <span><strong>Does not stop phishing:</strong> If an attacker tricks a user into entering their password on a fake website, encryption cannot prevent that mistake.</span>
+            </li>
+            <li class="limits-item">
+              <span class="limits-bullet">&times;</span>
+              <span><strong>Cannot protect compromised devices:</strong> If a computer has malware or a spyware keylogger installed, the hacker can capture keystrokes before they are encrypted.</span>
+            </li>
+            <li class="limits-item">
+              <span class="limits-bullet">&times;</span>
+              <span><strong>Does not fix weak passwords:</strong> A cipher is only as strong as its key. A simple password like "123456" is easily guessed regardless of encryption quality.</span>
+            </li>
+            <li class="limits-item">
+              <span class="limits-bullet">&times;</span>
+              <span><strong>Does not control the recipient:</strong> Once a recipient decrypts a message, encryption cannot stop them from taking a screenshot or showing it to someone else.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 8: Interactive Quiz -->
+    <section class="section-block" id="quiz">
+      <div class="container">
+        <div class="section-header" style="text-align:center;">
+          <div class="section-label">Section 7 · Test Your Knowledge</div>
+          <h2 class="section-title">Class 7 Cryptography Quiz</h2>
+          <p class="section-subtitle" style="margin:0 auto;">
+            Answer 5 questions to test your understanding of plaintext, encryption keys, cipher comparison, and Caesar cipher weaknesses.
+          </p>
+        </div>
+
+        <div id="quiz-box" class="quiz-container">
+          <!-- Dynamically populated by initQuiz() -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 9: Presentation Guide -->
+    <section class="section-block" id="guide">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Section 8 · Demonstration Material</div>
+          <h2 class="section-title">Presentation Guide</h2>
+          <p class="section-subtitle">
+            Speaking script, likely judge questions, and key terms for Chris Juan to explain the project clearly and confidently.
+          </p>
+        </div>
+
+        <div class="guide-accordion">
+          <!-- Item 1: 3-5 Minute Speaking Script -->
+          <div class="guide-item">
+            <div class="guide-item-header">
+              <span>1. 3–5 Minute Speaking Script for Chris Juan</span>
+              <span class="guide-arrow">▼</span>
+            </div>
+            <div class="guide-item-content">
+              <div class="speech-box">
+                <p style="margin-bottom:0.75rem;">
+                  <strong>Introduction:</strong><br>
+                  "Good morning, respected judges. My name is Chris Juan, and this is my Class 7 Computer Science project, Cipher Quest. My project explains encryption and decryption through an interactive experiment. I will show how a normal message becomes a secret code, how the correct key helps recover it, and how a simple code can be broken."
+                </p>
+                <p style="margin-bottom:0.75rem;">
+                  <strong>Demonstrating the Caesar Cipher:</strong><br>
+                  "In Section 2, we start with a readable message called plaintext, like 'MEET ME AT THE LIBRARY'. When we apply a key of 3, each letter shifts three positions forward in the alphabet. M becomes P, E becomes H, and T becomes W. The resulting scrambled text is called ciphertext: 'PHHW PH DW WKH OLEUDUB'. Notice that spaces and punctuation stay intact."
+                </p>
+                <p style="margin-bottom:0.75rem;">
+                  <strong>Decryption & Key Mismatch:</strong><br>
+                  "In Section 3, we show decryption, which reverses this shift. But look what happens when someone tries to decrypt with Key 5 instead of Key 3: the output remains scrambled gibberish. Only the matching key can recover the original words."
+                </p>
+                <p style="margin-bottom:0.75rem;">
+                  <strong>Code Breaking & Brute Force:</strong><br>
+                  "In Section 4, we test what happens when an interceptor does not know the key. Because the English alphabet only has 26 letters, there are only 25 possible shifts to test. By using a brute-force search, a computer can check every possibility in less than a millisecond and find that Shift 3 reveals the readable message."
+                </p>
+                <p>
+                  <strong>Conclusion:</strong><br>
+                  "This experiment helped me understand how encryption changes readable information and why keys matter. The Caesar cipher is easy to demonstrate but not secure enough for real use. Modern encryption helps protect our messages, payments, and personal information. Thank you, and I would be happy to answer your questions."
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2: Likely Judge Questions -->
+          <div class="guide-item">
+            <div class="guide-item-header">
+              <span>2. Five Likely Judge Questions and Model Answers</span>
+              <span class="guide-arrow">▼</span>
+            </div>
+            <div class="guide-item-content">
+              <div class="qa-card">
+                <div class="qa-question">Q1: Why did you choose the Caesar cipher for this demonstration?</div>
+                <div class="qa-answer">"I chose the Caesar cipher because it makes the concept of a key visual and easy to understand. You can clearly follow how letter M shifts to P with Key 3. Modern ciphers use complex binary mathematics that are difficult to visualize on a screen, but the core idea—using a secret rule to disguise and recover data—is the same."</div>
+              </div>
+
+              <div class="qa-card">
+                <div class="qa-question">Q2: Why is the Caesar cipher not used in real cybersecurity today?</div>
+                <div class="qa-answer">"Because it has a key space of only 25 non-zero shifts. Anyone who intercepts a message can try all 25 shifts in a few seconds by brute force. Modern ciphers like AES have \(2^{256}\) possible keys, which would take billions of years for even supercomputers to test."</div>
+              </div>
+
+              <div class="qa-card">
+                <div class="qa-question">Q3: What happens to letters like 'Z' when you shift them forward?</div>
+                <div class="qa-answer">"The cipher wraps around using modular arithmetic (modulo 26). When Z is shifted by 1, it wraps back around to A. In our code, we calculate <code>(character_code + shift) % 26</code> to handle wraparound cleanly."</div>
+              </div>
+
+              <div class="qa-card">
+                <div class="qa-question">Q4: What is the main difference between symmetric and asymmetric encryption?</div>
+                <div class="qa-answer">"Symmetric encryption uses the exact same secret key to lock and unlock the message, which requires both people to safely exchange the key beforehand. Asymmetric encryption uses two keys: a public key to lock the message and a private key to unlock it, solving the key-sharing problem."</div>
+              </div>
+
+              <div class="qa-card">
+                <div class="qa-question">Q5: Does encryption guarantee that a user will never get hacked?</div>
+                <div class="qa-answer">"No, encryption only protects data while it is stored or traveling across a network. It cannot prevent human mistakes like phishing, weak passwords, or malware already running on a computer that records keystrokes before they are encrypted."</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3: Cryptography Glossary -->
+          <div class="guide-item">
+            <div class="guide-item-header">
+              <span>3. Cryptography Glossary</span>
+              <span class="guide-arrow">▼</span>
+            </div>
+            <div class="guide-item-content">
+              <div class="glossary-grid">
+                <div class="glossary-card">
+                  <div class="glossary-term">Plaintext</div>
+                  <div class="glossary-def">The original readable message before encryption.</div>
+                </div>
+                <div class="glossary-card">
+                  <div class="glossary-term">Ciphertext</div>
+                  <div class="glossary-def">The scrambled, unreadable message produced by a cipher.</div>
+                </div>
+                <div class="glossary-card">
+                  <div class="glossary-term">Encryption</div>
+                  <div class="glossary-def">The mathematical process of turning plaintext into ciphertext.</div>
+                </div>
+                <div class="glossary-card">
+                  <div class="glossary-term">Decryption</div>
+                  <div class="glossary-def">The process of turning ciphertext back into readable plaintext.</div>
+                </div>
+                <div class="glossary-card">
+                  <div class="glossary-term">Encryption Key</div>
+                  <div class="glossary-def">A specific secret value (like a shift number) that directs how the cipher operates.</div>
+                </div>
+                <div class="glossary-card">
+                  <div class="glossary-term">Brute-Force Attack</div>
+                  <div class="glossary-def">Systematically testing every possible key until the correct one is found.</div>
+                </div>
+                <div class="glossary-card">
+                  <div class="glossary-term">Symmetric Cipher</div>
+                  <div class="glossary-def">A cipher where both sender and receiver use the same shared secret key.</div>
+                </div>
+                <div class="glossary-card">
+                  <div class="glossary-term">Asymmetric Cipher</div>
+                  <div class="glossary-def">A cipher using a public key to encrypt and a private key to decrypt.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4: Suggested Demonstration Sequence -->
+          <div class="guide-item">
+            <div class="guide-item-header">
+              <span>4. Suggested Demonstration Sequence</span>
+              <span class="guide-arrow">▼</span>
+            </div>
+            <div class="guide-item-content">
+              <ol style="padding-left:1.5rem; display:flex; flex-direction:column; gap:0.5rem;">
+                <li><strong>Start at Homepage:</strong> State your name (Chris Juan), Class 7, Computer Science, and project topic.</li>
+                <li><strong>Pipeline:</strong> Click "Plaintext" &rarr; "Encryption + Key" &rarr; "Ciphertext" to show the stages.</li>
+                <li><strong>Live Lab:</strong> Show the default message "MEET ME AT THE LIBRARY" with Key 3. Highlight the letter shift \(M \rightarrow P\). Change key to 5 to show live recalculation.</li>
+                <li><strong>Decryption Chamber:</strong> Show key mismatch (trying to decrypt with Key 5 instead of Key 3). Restore Key 3 to reveal the original message.</li>
+                <li><strong>Crack the Code:</strong> Click "Try All Shifts" to show all 26 shifts and highlight the readable result. Explain why 26 possibilities is weak.</li>
+                <li><strong>Modern Keys:</strong> Contrast symmetric vs. asymmetric encryption.</li>
+                <li><strong>Conclusion:</strong> Summarize how encryption protects websites (HTTPS) and chats daily.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Section 7: Live Judge Presentation Mode Overlay -->
+  <div id="presentation-overlay" class="presentation-overlay" role="dialog" aria-modal="true" aria-label="Judge Presentation Mode">
+    <div class="presentation-container">
+      <div class="presentation-header">
+        <div>
+          <span id="pres-step-number" class="presentation-step-badge">STEP 1 OF 8</span>
+          <div style="font-size:0.875rem; color:var(--text-muted); margin-top:0.2rem;">Live School Judge Demonstration &middot; Chris Juan (Class 7)</div>
+        </div>
+        <button id="btn-close-presentation" class="btn btn-secondary btn-sm" title="Exit Presentation Mode">
+          &times; Exit Presentation Mode
+        </button>
+      </div>
+
+      <div class="presentation-stage-card">
+        <h2 id="pres-step-title" class="presentation-step-title">Introduce the Problem</h2>
+        <div id="pres-step-headline" class="presentation-step-headline">
+          How can we send a message without making it easy for everyone to understand?
+        </div>
+
+        <!-- Live Interactive Simulation Area -->
+        <div id="pres-interactive-box" class="presentation-interactive-box">
+          <!-- Dynamically populated per step -->
+        </div>
+
+        <!-- Presenter Cue Card -->
+        <div class="presenter-note-box">
+          <div class="presenter-note-header">Presenter Cue Card for Chris Juan:</div>
+          <div id="pres-note-text" class="presenter-note-text">
+            Welcome the judges and introduce the core challenge: when information travels across a public network or messenger, anyone can intercept it unless we disguise it with a secret rule.
+          </div>
+        </div>
+      </div>
+
+      <div class="presentation-controls">
+        <button id="btn-pres-prev" class="btn btn-secondary">&larr; Previous Step</button>
+        <button id="btn-pres-reset" class="btn btn-secondary">Reset to Step 1</button>
+        <button id="btn-pres-next" class="btn btn-primary">Next Step &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-credits">
+        <strong>CIPHER QUEST: The Science of Secret Messages</strong><br>
+        Class 7 Computer Science Project &middot; Created by <strong>Chris Juan</strong>
+      </div>
+      <div class="footer-disclaimer">
+        An educational project demonstrating the basic principles of encryption. The Caesar cipher used in this experiment is not suitable for protecting real sensitive information.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Script -->
+  <script type="module" src="./src/js/app.js"></script>
+</body>
+</html>
